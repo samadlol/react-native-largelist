@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:bolan9999/react-native-largelist.git"
+		"url": "git@github.com:smadlol/react-native-largelist.git"
 	},
 	"keywords": [
 		"react-native",
@@ -21,9 +21,9 @@
 		"swipable flatlist"
 	],
 	"bugs": {
-		"url": "https://github.com/bolan9999/react-native-largelist/issues"
+		"url": "https://github.com/samadlol/react-native-largelist/issues"
 	},
-	"homepage": "https://github.com/bolan9999/react-native-largelist",
+	"homepage": "https://github.com/samadlol/react-native-largelist",
 	"peerDependencies": {
 		"react": "^16.3.1",
 		"react-native": "^0.50.0",
