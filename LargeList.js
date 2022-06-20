@@ -219,9 +219,10 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
       sumHeight > 0
         ? {
             height:
-              sumHeight > wrapperHeight
+              (sumHeight > wrapperHeight
                 ? sumHeight
-                : wrapperHeight + StyleSheet.hairlineWidth,
+                : wrapperHeight + StyleSheet.hairlineWidth) +
+              (this.props.contentStyle?.paddingBottom ?? 0),
           }
         : null;
     //#endregion
@@ -266,9 +267,12 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
                   }),
                 },
               ];
-            const style = StyleSheet.flatten([styles.abs, { 
-              transform,
-              }]);
+            const style = StyleSheet.flatten([
+              styles.abs,
+              {
+                transform,
+              },
+            ]);
             return (
               <Section
                 {...this.props}
@@ -282,7 +286,7 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
               />
             );
           })}
-        {shouldRenderContent &&this.props.children()}
+        {shouldRenderContent && this.props.children()}
         {this._renderHeaderBackground()}
         {this._renderHeader()}
         {this._renderFooter()}
