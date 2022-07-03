@@ -439,34 +439,23 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
     this._groupRefs.forEach((group) =>
       idx(() => group.current.contentConversion(this._contentOffsetY))
     );
-    idx(() =>
-      this._sectionRefs.forEach((sectionRef) => {
-        sectionRef.current.updateOffset(this._contentOffsetY);
-      })
-    );
     this.props.onMomentumScrollEnd && this.props.onMomentumScrollEnd();
   };
 
   _onScroll = (e) => {
     const offsetY = e.nativeEvent.contentOffset.y;
     this._contentOffsetY = offsetY;
-    this._shouldUpdateContent &&
-      idx(() =>
-        this._sectionRefs.forEach((sectionRef) => {
-          sectionRef.current.updateOffset(this._contentOffsetY);
-        })
-      );
+    idx(() =>
+      this._sectionRefs.forEach((sectionRef) => {
+        sectionRef.current.updateOffset(this._contentOffsetY);
+      })
+    );
     this.props.onScroll && this.props.onScroll(e);
     const now = new Date().getTime();
-    if (this._lastTick - now > 30) {
-      this._lastTick = now;
-      return;
-    }
     this._lastTick = now;
-    this._shouldUpdateContent &&
-      this._groupRefs.forEach((group) =>
-        idx(() => group.current.contentConversion(offsetY))
-      );
+    this._groupRefs.forEach((group) =>
+      idx(() => group.current.contentConversion(offsetY))
+    );
   };
 
   scrollTo(offset: Offset, animated: boolean = true): Promise<void> {
