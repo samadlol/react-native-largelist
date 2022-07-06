@@ -9,27 +9,28 @@
 
 import React from "react";
 import { StickyFormPropType } from "./Types";
-import type {IndexPath, LargeListPropType, Offset, Size} from "./Types";
-import { Animated, StyleSheet } from "react-native";
+import type { IndexPath, LargeListPropType, Offset, Size } from "./Types";
+import { Animated, I18nManager, StyleSheet } from "react-native";
 import { LargeList } from "./LargeList";
-import {idx} from "./idx";
+import { idx } from "./idx";
+import context from "../../src/utils/context";
 
 export class StickyForm extends React.PureComponent<StickyFormPropType> {
   _size: Size;
   _contentOffsetY = 0;
   _nativeOffset;
   _offset: Animated.Value;
-  _largeList=React.createRef();
+  _largeList = React.createRef();
 
   constructor(props) {
     super(props);
     this._nativeOffset = {
       x: new Animated.Value(0),
-      ...this.props.onNativeContentOffsetExtract
+      ...this.props.onNativeContentOffsetExtract,
     };
     this._offset = this._nativeOffset.x;
   }
-  
+
   render() {
     return (
       <LargeList
@@ -72,8 +73,15 @@ export class StickyForm extends React.PureComponent<StickyFormPropType> {
       sticky.props.style,
       {
         zIndex: 99999999999,
-        transform: [{ translateX: this._offset.interpolate({ inputRange: [-1, 0, 1], outputRange: [0, 0, 1] }) }]
-      }
+        transform: [
+          {
+            translateX: this._offset.interpolate({
+              inputRange: [-1, 0, 1],
+              outputRange: context.isRTL() ? [-1, 0, -1] : [0, 0, 1],
+            }),
+          },
+        ],
+      },
     ]);
     return React.cloneElement(
       view,
@@ -87,7 +95,8 @@ export class StickyForm extends React.PureComponent<StickyFormPropType> {
   }
 
   scrollTo(offset: Offset, animated: boolean = true): Promise<void> {
-    if (!this._largeList.current) return Promise.reject("StickyForm has not been initialized yet!");
+    if (!this._largeList.current)
+      return Promise.reject("StickyForm has not been initialized yet!");
     return this._largeList.current.scrollTo(offset, animated).then(() => {
       return Promise.resolve();
     });
@@ -103,6 +112,6 @@ export class StickyForm extends React.PureComponent<StickyFormPropType> {
 
   static defaultProps = {
     directionalLockEnabled: true,
-    headerStickyEnabled: true
+    headerStickyEnabled: true,
   };
 }
