@@ -58,7 +58,12 @@ export class StickyForm extends React.PureComponent<StickyFormPropType> {
   };
 
   _renderSection = (section: number) => {
-    return this._stickyFirstView(this.props.renderSection(section));
+    return this._stickyFirstView(
+      this.props.renderSection(
+        section,
+        this.props.onNativeContentOffsetExtract.x
+      )
+    );
   };
 
   _renderIndexPath = (path: IndexPath) => {

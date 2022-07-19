@@ -166,8 +166,10 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
         const headerHeight = this._headerLayout ? this._headerLayout.height : 0;
         const first = sectionInputs[index].length <= 0;
         let sec1 = first
-        ? sectionTops[section] - 1 - headerHeight
-        : sectionInputs[index][sectionInputs[index].length - 1] + 0.1,sec2 = sectionTops[section] - headerHeight,sec3 = sectionTops[section];
+            ? sectionTops[section] - 1 - headerHeight
+            : sectionInputs[index][sectionInputs[index].length - 1] + 0.1,
+          sec2 = sectionTops[section] - headerHeight,
+          sec3 = sectionTops[section];
         sectionInputs[index].push(
           sec1,
           Math.max(sec1, sec2),
@@ -181,8 +183,14 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
         );
         if (section + 1 < data.length) {
           sectionInputs[index].push(
-            Math.max(sectionTops[section + 1] - sectionHeights[section], sectionTops[section + 1]),
-            Math.max(sectionTops[section + 1] - sectionHeights[section], sectionTops[section + 1])
+            Math.max(
+              sectionTops[section + 1] - sectionHeights[section],
+              sectionTops[section + 1]
+            ),
+            Math.max(
+              sectionTops[section + 1] - sectionHeights[section],
+              sectionTops[section + 1]
+            )
           );
           sectionIndexes[index].push(section, section);
           sectionOutputs[index].push(
@@ -222,7 +230,8 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
             height:
               (sumHeight > wrapperHeight
                 ? sumHeight
-                : wrapperHeight + StyleSheet.hairlineWidth) + (this.props.contentStyle?.paddingBottom ?? 0),
+                : wrapperHeight + StyleSheet.hairlineWidth) +
+              (this.props.contentStyle?.paddingBottom ?? 0),
           }
         : null;
     //#endregion
@@ -267,9 +276,12 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
                   }),
                 },
               ];
-            const style = StyleSheet.flatten([styles.abs, { 
-              transform,
-              }]);
+            const style = StyleSheet.flatten([
+              styles.abs,
+              {
+                transform,
+              },
+            ]);
             return (
               <Section
                 {...this.props}
@@ -283,7 +295,7 @@ export class LargeList extends React.PureComponent<LargeListPropType> {
               />
             );
           })}
-        {shouldRenderContent &&this.props.children()}
+        {shouldRenderContent && this.props.children()}
         {this._renderHeaderBackground()}
         {this._renderHeader()}
         {this._renderFooter()}
